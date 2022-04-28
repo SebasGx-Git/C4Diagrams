@@ -277,6 +277,120 @@ namespace C4Model
             componentView2.Add(googleCalendar);
             componentView2.AddAllComponents();
 
+            //5. Component Artwork
+
+            Component artworkApplicationService = artworkContext.AddComponent("Artwork Application Service", "Provee metodos para la creación de las obras de artes");
+            Component domainLayera = artworkContext.AddComponent("Domain Layer", "", "Spring Boot");
+            Component artworkController = artworkContext.AddComponent("Artwork Controller", "REST API endpoints de la obra de arte.", "Spring Boot REST Controller");
+            Component artworkRepository = artworkContext.AddComponent("Artwork Repository", "Información sobre obra de arte ", "Spring Component");
+
+            apiGateway.Uses(artworkController, "", "JSON/HTTPS ");
+            artworkApplicationService.Uses(domainLayera, "Usa", "");
+            artworkController.Uses(artworkApplicationService,"", "Invoca metodos Crud y realiza logica");
+            artworkApplicationService.Uses(artworkRepository,"", "JDBC");
+            artworkRepository.Uses(artworkContextDatabase,"","JDBC");
+
+            //Tags
+            artworkApplicationService.AddTags("ArtworkApplicationService");
+            domainLayera.AddTags("DomainLayera");
+            artworkController.AddTags("ArtworkController");
+            artworkRepository.AddTags("ArtworkRepository");
+
+            styles.Add(new ElementStyle("ArtworkApplicationService") { Shape = Shape.Component, Background = "#facc2e", Icon = "" });
+            styles.Add(new ElementStyle("DomainLayera") { Shape = Shape.Component, Background = "#facc2e", Icon = "" });
+            styles.Add(new ElementStyle("ArtworkController") { Shape = Shape.Component, Background = "#facc2e", Icon = "" });
+            styles.Add(new ElementStyle("ArtworkRepository") { Shape = Shape.Component, Background = "#facc2e", Icon = "" });
+
+            ComponentView componentView3 = viewSet.CreateComponentView(artworkContext, "Components Artworks", "Artworks Component Diagram");
+            componentView3.PaperSize = PaperSize.A4_Landscape;
+            componentView3.Add(mobileApplication);
+            componentView3.Add(webApplication);
+            componentView3.Add(apiGateway);
+            componentView3.Add(artworkContextDatabase);
+            componentView3.AddAllComponents();
+
+
+            //6.Component Event
+
+            Component eventApplicationService = eventContext.AddComponent("Event Application Service", "Provee metodos para la creación de los eventos");
+            Component domainLayere = eventContext.AddComponent("Domain Layer", "", "Spring Boot");
+            Component eventController = eventContext.AddComponent("Event Controller", "REST API endpoints de la obra de arte.", "Spring Boot REST Controller");
+            Component typeEventController = eventContext.AddComponent("Type Event Controller", "Rest API endpoints de los tipos de obra de arte", "Spring Boot REST Controller");
+            Component eventRepository = eventContext.AddComponent("Event Repository", "Información sobre los eventos ", "Spring Component");
+            Component typeeventRepository = eventContext.AddComponent("Type Event Repository", "Información sobre los tipos de eventos", "Spring Component");
+
+            apiGateway.Uses(eventController, "", "JSON/HTTPS ");
+            apiGateway.Uses(typeEventController, "", "JSON/HTTPS ");
+
+            eventController.Uses(eventApplicationService, "", "Invoca metodos Crud y realiza logica");
+            typeEventController.Uses(eventApplicationService,"","Invoca metodos Crud y realiza logica");
+
+            eventApplicationService.Uses(domainLayere,"Usa","");
+            eventApplicationService.Uses(eventRepository,"","");
+            eventApplicationService.Uses(typeeventRepository,"","");
+            
+            eventRepository.Uses(eventContextDatabase,"", "JDBC");
+            eventRepository.Uses(googleMaps, "", "JSON/HTTPS");
+            eventRepository.Uses(zoom, "", "JSON/HTTPS");
+            typeeventRepository.Uses(eventContextDatabase,"","JDBC");
+
+            //Tags
+            eventApplicationService.AddTags("EventApplicationService");
+            domainLayere.AddTags("DomainLayere");
+            eventController.AddTags("EventController");
+            typeEventController.AddTags("TypeEventController");
+            eventRepository.AddTags("EventRepository");
+            typeeventRepository.AddTags("TypeEventRepository");
+
+            styles.Add(new ElementStyle("EventApplicationService") { Shape = Shape.Component, Background = "#facc2e", Icon = "" });
+            styles.Add(new ElementStyle("DomainLayere") { Shape = Shape.Component, Background = "#facc2e", Icon = "" });
+            styles.Add(new ElementStyle("EventController") { Shape = Shape.Component, Background = "#facc2e", Icon = "" });
+            styles.Add(new ElementStyle("TypeEventController") { Shape = Shape.Component, Background = "#facc2e", Icon = "" });
+            styles.Add(new ElementStyle("EventRepository") { Shape = Shape.Component, Background = "#facc2e", Icon = "" });
+            styles.Add(new ElementStyle("TypeEventRepository") { Shape = Shape.Component, Background = "#facc2e", Icon = "" });
+
+            ComponentView componentView4 = viewSet.CreateComponentView(eventContext, "Components Events", "Events Component Diagram");
+            componentView4.PaperSize = PaperSize.A4_Landscape;
+            componentView4.Add(mobileApplication);
+            componentView4.Add(webApplication);
+            componentView4.Add(apiGateway);
+            componentView4.Add(zoom);
+            componentView4.Add(googleMaps);
+            componentView4.Add(eventContextDatabase);
+            componentView4.AddAllComponents();
+
+            //7.Component Report
+
+            Component reportApplicationService = reportContext.AddComponent("Report Application Service", "Provee metodos para la creación y gestion de los reportes");
+            Component domainLayerr = reportContext.AddComponent("Domain Layerr", "", "Spring Boot");
+            Component reportController = reportContext.AddComponent("Report Controller", "REST API endpoints de los reportes.", "Spring Boot REST Controller");
+            Component reportRepository = reportContext.AddComponent("Report Repository", "Información sobre los reportes", "Spring Component");
+
+            apiGateway.Uses(reportController, "", "JSON/HTTPS ");
+            reportController.Uses(reportApplicationService, "", "Invoca metodos Crud y realiza logica");
+            reportApplicationService.Uses(domainLayerr,"","JDBC");
+            reportApplicationService.Uses(reportRepository, "", "JDBC");
+            reportRepository.Uses(reportContextDatabase,"","JDBC");
+
+
+            //Tags
+            reportController.AddTags("ReportController");
+            reportApplicationService.AddTags("ReportApplicationService");
+            reportRepository.AddTags("ReportRepository");
+            domainLayerr.AddTags("DomainLayerr");
+
+            styles.Add(new ElementStyle("ReportController") { Shape = Shape.Component, Background = "#facc2e", Icon = "" });
+            styles.Add(new ElementStyle("ReportApplicationService") { Shape = Shape.Component, Background = "#facc2e", Icon = "" });
+            styles.Add(new ElementStyle("ReportRepository") { Shape = Shape.Component, Background = "#facc2e", Icon = "" });
+            styles.Add(new ElementStyle("DomainLayerr") { Shape = Shape.Component, Background = "#facc2e", Icon = "" });
+
+            ComponentView componentView5 = viewSet.CreateComponentView(reportContext, "Components Reports", "Reports Component Diagram");
+            componentView5.PaperSize = PaperSize.A4_Landscape;
+            componentView5.Add(mobileApplication);
+            componentView5.Add(webApplication);
+            componentView5.Add(apiGateway);
+            componentView5.Add(reportContextDatabase);
+            componentView5.AddAllComponents();
 
             //Render
 
